@@ -1,3 +1,8 @@
+"""
+Leetcode OJ time: 306ms
+"""
+
+
 class Solution:
     # @param strs, a list of strings
     # @return a list of strings

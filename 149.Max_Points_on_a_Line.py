@@ -1,5 +1,9 @@
 from datastructure.point import *
 
+"""
+LeetCode OJ time: 112 ms
+"""
+
 class Solution(object):
     def maxPoints(self, points):
         """

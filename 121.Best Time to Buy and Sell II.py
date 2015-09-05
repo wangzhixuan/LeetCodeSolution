@@ -1,3 +1,8 @@
+"""
+Leetcode OJ time: 60ms
+"""
+
+
 class Solution:
     # @param prices, a list of integer
     # @return an integer
