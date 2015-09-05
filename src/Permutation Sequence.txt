@@ -1,0 +1,40 @@
+def getPermutation2(n,k,str0, factorial):
+    result = ""
+    l = len(str0)
+    
+    if (n==1):
+        return "1"
+    elif (k==1):
+        return str0
+    elif (k==factorial[n]):
+        for i in range(n):
+            result += str0[-i-1]
+    else:
+        j = (k - 1)/factorial[n-1]
+        k0 = k - j * factorial[n-1]
+        str1 = str0[0:j] + str0[j+1:l]
+        result = str0[j] + getPermutation2(n-1, k0, str1, factorial)
+    
+    return result   
+
+
+class Solution:
+    # @return a string
+    def getPermutation(self, n, k):
+        factorial = [1]
+        firststring = ""
+        temp = 1
+        
+        for i in range(n):
+            temp = temp * (i+1)
+            factorial.append(temp)
+            firststring += str(i+1) 
+            
+        result = getPermutation2(n,k,firststring,factorial)
+        return result
+
+  
+        
+            
+                
+        

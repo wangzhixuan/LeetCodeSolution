@@ -1,0 +1,67 @@
+def find_position(lst0, to_insert):
+    """
+    insert an element into a list sorted by the first element
+    return the insert position so that the new list is still sorted
+    """
+
+    left = 0
+    right = len(lst0)-1
+    
+    if to_insert[0] < lst0[left][0]:
+        return 0
+    elif to_insert[0] > lst0[right][0]:
+        return right+1
+    
+    while (right - left) > 1:
+        mid = (left+right)/2
+        if to_insert[0] == lst0[mid][0]: # well, not possible in this problem
+            return mid
+        elif to_insert[0] < lst0[mid][0]:
+            right = mid
+        else:
+            left = mid
+        
+    return right
+    
+
+class Solution:
+    # @return a string
+    def minWindow(self, S, T):
+        dic = {}
+        m = len(T)
+        for i,element in enumerate(S):
+            if element in T:
+                if element in dic:
+                    dic[element].append(i)
+                else:
+                    dic[element] = [i]
+        min_window = ""
+        
+        lst0 = []
+        for element in T:
+            try:
+                lst0.append((dic[element].pop(0), element))
+            except:
+                return ""
+        
+        
+        lst0.sort(key=lambda x:x[0])
+        min_window = S[lst0[0][0]:lst0[-1][0]+1]
+        
+        minlength = lst0[-1][0] - lst0[0][0]
+        while True:
+            next = lst0.pop(0)
+            element = next[1]
+            if len(dic[element])==0:
+                return min_window
+            else:
+                to_insert = (dic[element].pop(0), element)
+            
+            position = find_position(lst0, to_insert)
+            
+            lst0.insert(position, to_insert)
+            
+            length = lst0[-1][0] - lst0[0][0]
+            if length<minlength:
+                minlength = length
+                min_window = S[lst0[0][0]:lst0[-1][0]+1]

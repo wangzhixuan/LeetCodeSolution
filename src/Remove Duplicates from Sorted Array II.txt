@@ -1,0 +1,23 @@
+class Solution:
+    # @param A a list of integers
+    # @return an integer
+    def removeDuplicates(self, A):
+        duplicate = []
+        
+        if len(A)<2:
+            return len(A)
+        
+        i = 0
+        while (i<len(A)): 
+            if (len(duplicate) == 0):
+                if(i>0):
+                    if (A[i] == A[i-1]):
+                        duplicate.append(A[i])
+                i += 1
+            elif (A[i]!= duplicate[0]):
+                duplicate.pop()
+                i += 1
+            else:
+                A.pop(i)
+        
+        return len(A)        

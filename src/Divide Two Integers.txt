@@ -1,0 +1,54 @@
+class Solution:
+    # @return an integer
+    def divide(self, dividend, divisor):
+        flag = True
+        if dividend <0:
+            dividend = -dividend
+            flag = not flag
+        if divisor <0:
+            divisor = -divisor
+            flag = not flag
+        elif divisor ==0:
+            return None
+        
+        number = divisor
+        number0 = 1
+        self.dict0 = {} 
+        self.l = []
+        
+        
+        if (number > dividend):
+            return 0
+        elif (number == dividend):
+            if flag:
+                return 1
+            else:
+                return -1
+        
+        while  number<dividend:
+            self.dict0[number] = number0
+            self.l.append(number)
+            number += number
+            number0 += number0
+            
+        
+        result = self.my_divide(dividend,  len(self.l)-1)  
+        
+        if not flag:
+            result *= (-1)
+        
+        return result    
+
+    def my_divide(self, dividend, index):
+        if dividend < self.l[0]:
+            return 0
+        elif dividend == self.l[0]:
+            return 1
+        for i in range(index,-1,-1):
+            if (self.l[i] <= dividend):
+                result = self.dict0[self.l[i]] + self.my_divide(dividend - self.l[i], i)
+                return result
+
+        return 0	
+        
+            
