@@ -1,0 +1,19 @@
+class Solution:
+    # @param x, a float
+    # @param n, a integer
+    # @return a float
+    def pow(self, x, n):
+        odd = (n % 2 > 0)
+        
+        if (n==1):
+            return x
+        elif (n==0):
+            return 1
+        else:
+            halfn = n/2
+            answer = pow(x,n/2)
+            answer = answer*answer
+            if odd:
+                answer = answer *x
+
+        return answer    

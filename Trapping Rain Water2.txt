@@ -1,0 +1,101 @@
+####################################################################
+# Basic logic:
+# Water can only be kept between two "peaks".
+# The water level between peakindex[i-1] and peakindex[i] is determined by
+# the highest peak on its left and the highest peak on its right
+# min( max( max(peaklevel[0:i]), max(peaklevel[i+1:n0+1]) ) 
+# 
+# However, the previous line is computationally too expensive.
+# It would be much cheaper to store/calculate the highest peaks on both sides
+# when we are stepping through the list at first. 
+####################################################################
+
+
+class Solution:
+    # @param A, a list of integers
+    # @return an integer
+    def trap(self, A):
+        peakindex = []
+        peaklevel = []
+        llevel = []
+        
+        n = len(A)
+        tmplevel = 0
+		
+        # no water can be stored if there are fewer than 3 blocks.
+        if n<3:
+            return 0
+        
+		####################################################
+        # record all the "peaks" (position and level) 
+		# the highest peak on the left (llevel) and the highest peak on the right (rlevel)
+        ####################################################
+
+        # head block only needs to be higher than the next block
+        # for e.g. [3,1,....] then the head block is considered as a "peak"
+        if  A[0]>=A[1]:
+            peakindex.append(0)
+            peaklevel.append(A[0])
+            tmplevel=A[0]
+            llevel.append(tmplevel)
+			
+        # "peak" block is a block who is higher than both its neighbours
+        ############ 
+        # One special case is [ ... ,1,2,2,2,1, ... ], 
+        # in which case only the first "2" is considered as a "peak"
+        ############  
+        # Another special case is [ ... ,1,2,2,3, ...], 
+        # in which case the first "2" is still considered as a "peak".
+        # Though intuitively it is wrong, 
+        # but it is hard to exclude and actually does no harm
+
+        for i in range(1,n-1):
+            if (A[i]>A[i-1]) and (A[i]>=A[i+1]):
+                peakindex.append(i)
+                peaklevel.append(A[i])
+                llevel.append(max(A[i],tmplevel))
+                tmplevel = llevel[-1]
+
+		# Similar to head block, 
+        # the tail block only needs to be higher than the previous block
+        if A[n-2]<A[n-1]:
+            peakindex.append(n-1)
+            peaklevel.append(A[n-1])
+            llevel.append(0)
+
+        n0 = len(peakindex)
+		# Water can only be kept between two peaks.
+        if (n0<2):
+            return 0
+        
+		# calculate the rlevel	
+        rlevel=[0]*n0
+        rlevel[n0-1] = peaklevel[n0-1]
+        for i in range(n0-2,0,-1):
+            rlevel[i] = max(rlevel[i+1],peaklevel[i])
+
+        ####################################################
+        # Calculate the water volume using the peaks we find 
+        ####################################################
+
+        volume = 0
+        index = 0
+        waterlevel = 0
+        for i in range(peakindex[0],peakindex[n0-1]):
+             
+            if (i>=peakindex[index]):
+                index += 1
+                if (waterlevel <= peaklevel[index-1]):
+                    waterlevel = min(llevel[index-1],rlevel[index])
+                
+            water = waterlevel - A[i]
+            water = max(water, 0)
+            
+            volume += water
+            
+        return volume           
+        
+        
+        
+        
+            

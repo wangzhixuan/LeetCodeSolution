@@ -1,0 +1,29 @@
+def my_permute(num): 
+    n = len(num)
+    list_of_lists=[]
+    
+    if n==1:
+        return [num]
+#    elif n==2:
+#        return [[num[0],num[1]], [num[1],num[0]]]
+    
+    for number in num:
+        list0 = list(num)
+        list0.remove(number)
+            
+        tmplist = my_permute(list0)
+            
+        for permutations in tmplist:
+            permutations.append(number)
+    
+        list_of_lists += tmplist
+                
+    return list_of_lists    
+
+
+
+class Solution:
+    # @param num, a list of integer
+    # @return a list of lists of integers
+    def permute(self, num):
+        return my_permute(num)

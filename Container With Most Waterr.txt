@@ -1,0 +1,70 @@
+# Solution 1 (by n00tc0d3r on LeetCode): O(n) cost
+# https://oj.leetcode.com/discuss/1074/anyone-who-has-a-o-n-algorithm
+
+class Solution:
+    # @return an integer
+    def maxArea(self, height):
+
+        start = 0 
+        end = len(height)-1
+        
+        maxvol = 0
+        
+        while (end>start):
+            level = min(height[start],height[end])
+            vol = level* (end-start)
+            maxvol = max(vol, maxvol)
+            
+            if (height[start]<height[end]):
+                start += 1
+            else:
+                end -= 1
+
+        return maxvol    
+		
+# Solution 2 (by me): O(n^2) cost
+class Solution:
+    # @return an integer
+    def maxArea(self, height):
+        n = len(height)
+        if n==0:
+            return None
+        maxvol = 0
+
+        order = 0
+        for i0 in range(n-1):
+            tmp = height[i0] - height[i0+1]
+            if (tmp<0):
+                order += 1
+            elif (tmp >0):
+                order -= 1
+
+        if (order>0):
+            height = height[::-1]
+
+
+        for i0 in range(0,n):  
+            if (i0>0):
+                if (height[i0]<height[i0-1]):
+                    continue
+                
+            if (n-1-i0)*height[i0]< maxvol:
+                continue
+            
+            for i1 in range(n-1, i0, -1):
+                if (i1<n-1):
+                    if (height[i1]<height[i1+1]):
+                        continue
+                    
+                if (i1-i0)*height[i0]< maxvol:
+                    break
+
+                level = min(height[i0],height[i1])
+                vol = level * (i1-i0)
+                if (vol>maxvol):
+                    maxvol = vol
+                    if ((n-1-i0)*height[i0]<maxvol):
+                        break
+                
+        return maxvol        
+                
