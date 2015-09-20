@@ -55,7 +55,7 @@ class Solution:
             """
             :profit1: is the best profit one can make with single buy and sell both before "i"th day
             :best_profit2: is the best profit one can make with single buy and sell both after "i"th day
-            :best_profit: is the the total best profit one can achieve by 
+            :best_profit: is the the total best profit one can achieve by making 2 (buy and sell)s
             """
             if i == profit1[0]:
                 profit1 = profit1_list.pop()
