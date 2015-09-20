@@ -1,3 +1,8 @@
+"""
+Leetcode OJ time: 192ms
+"""
+
+
 # Definition for a  binary tree node
 # class TreeNode:
 #     def __init__(self, x):
@@ -19,10 +24,7 @@ class Solution:
         summ = max(linkl + linkr + root.val, suml, sumr, link)
         
         return [link, summ]
-            
-        
-    
+
     def maxPathSum(self, root):
         result = self.maxPathSum0(root)
         return result[1]
-        
