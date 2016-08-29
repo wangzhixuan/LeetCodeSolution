@@ -1,3 +1,8 @@
+"""
+Leetcod OJ time: 112ms
+"""
+
+
 class Solution:
     # @param ratings, a list of integer
     # @return an integer
@@ -49,7 +54,4 @@ class Solution:
             
                     previous_peak = False
 
-            
         return sum
-            
-            

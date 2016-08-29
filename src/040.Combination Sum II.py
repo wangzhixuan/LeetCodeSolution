@@ -40,7 +40,6 @@ class Solution:
             else:
                 dic0[new_sum] = set([new_comb])
 
-        
         return result
         
         
@@ -48,6 +47,7 @@ class Solution:
     """
     by ChunTaoLiu at
     https://oj.leetcode.com/discuss/17932/dp-solution-in-python
+    Leetcode OJ time: 68ms
     """
     def combinationSum2(self, candidates, target):
         candidates.sort()
