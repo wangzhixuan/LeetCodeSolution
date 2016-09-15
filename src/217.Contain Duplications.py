@@ -1,3 +1,8 @@
+"""
+LeetCode OJ time: 45ms
+"""
+
+
 class Solution:
     # @param {integer[]} nums
     # @return {boolean}

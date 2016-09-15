@@ -1,3 +1,8 @@
+"""
+LeetCode OJ time: 42ms
+"""
+
+
 class Solution:
     # @param {integer[]} nums
     # @param {integer} k
